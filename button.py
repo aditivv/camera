@@ -1,7 +1,6 @@
 from gpiozero import Button
 import cv2
 from datetime import datetime
-import time
 import os
 
 # Set up the button on GPIO17, using the Pi's internal pull-up resistor
@@ -19,23 +18,39 @@ camera = cv2.VideoCapture(0)
 save_dir = os.path.expanduser("~/Pictures")
 os.makedirs(save_dir, exist_ok=True)
 
-print("Ready. Press the button to take a photo. Ctrl+C to quit.")
+print("Ready. Press the button to take a photo. Press 'q' in the preview window (or Ctrl+C) to quit.")
 
-def take_photo():
-    ret, frame = camera.read()
-    if not ret:
-        print("Failed to grab frame from webcam.")
-        return
+capture_requested = False
+
+def request_capture():
+    global capture_requested
+    capture_requested = True
+
+def save_photo(frame):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"{save_dir}/photo_{timestamp}.jpg"
     cv2.imwrite(filename, frame)
     print(f"Saved: {filename}")
 
-button.when_pressed = take_photo
+button.when_pressed = request_capture
 
 try:
     while True:
-        time.sleep(1)
+        ret, frame = camera.read()
+        if not ret:
+            print("Failed to grab frame from webcam.")
+            break
+
+        cv2.imshow("Camera Preview", frame)
+
+        if capture_requested:
+            save_photo(frame)
+            capture_requested = False
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 except KeyboardInterrupt:
     print("Stopping.")
+finally:
     camera.release()
+    cv2.destroyAllWindows()
