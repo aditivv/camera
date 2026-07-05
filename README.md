@@ -18,3 +18,7 @@ A camera that allows you to take pictures by clicking a button!
 4. Plug in a webcam into one of the USB-A ports of your Pi.
 5. Clone this repository on your Pi.
 6. Run `python button.py` and follow the instructions that follow in the command prompt. Images will be saved in your Pi's `home\Pictures` directory.
+
+## Potential enhancements
+
+* Utilizing MediaPipe framework for live feed detection (hand signals, etc.); unfortunately currently unavailable due to its lagging behind recent Python updates.
