@@ -78,8 +78,8 @@ def apply_face_effect(frame):
         lens_radius = int(fw * 0.16)
         thickness = max(2, lens_radius // 4)
 
-        cv2.circle(frame, (left_eye_x, eye_y), lens_radius, (0, 0, 0), -1)
-        cv2.circle(frame, (right_eye_x, eye_y), lens_radius, (0, 0, 0), -1)
+        cv2.circle(frame, (left_eye_x, eye_y), lens_radius, (0, 0, 0), thickness)
+        cv2.circle(frame, (right_eye_x, eye_y), lens_radius, (0, 0, 0), thickness)
         # bridge connecting the two lenses
         cv2.line(frame, (left_eye_x + lens_radius, eye_y), (right_eye_x - lens_radius, eye_y), (0, 0, 0), thickness)
         # temple arms extending toward the sides of the face
