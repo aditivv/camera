@@ -67,7 +67,7 @@ def detect_thumb_gesture(frame):
         return "down"
     return None
 
-
+# adds glasses upon thumbs up
 def apply_face_effect(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(60, 60))
@@ -87,10 +87,21 @@ def apply_face_effect(frame):
         cv2.line(frame, (right_eye_x + lens_radius, eye_y), (fx + fw, eye_y - int(fh * 0.05)), (0, 0, 0), thickness)
     return frame
 
+# function to allow user to enter a name for the photo (optional)
+def prompt_photo_name():
+    name = input("Name this photo (leave blank to use a timestamp): ").strip()
+    if not name:
+        return datetime.now().strftime("%Y%m%d_%H%M%S")
+    return os.path.splitext(os.path.basename(name))[0]
+
 
 def save_photo(frame):
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{save_dir}/photo_{timestamp}.jpg"
+    name = prompt_photo_name()
+    filename = os.path.join(save_dir, f"{name}.jpg")
+    counter = 1
+    while os.path.exists(filename):
+        filename = os.path.join(save_dir, f"{name}_{counter}.jpg")
+        counter += 1
     cv2.imwrite(filename, frame)
     print(f"Saved: {filename}")
 
