@@ -16,7 +16,7 @@ button = Button(17, pull_up=True, bounce_time=0.2)
 camera = cv2.VideoCapture(0)
 
 # Make sure the save folder exists
-save_dir = "/home/pi/Pictures"
+save_dir = os.path.expanduser("~/Pictures")
 os.makedirs(save_dir, exist_ok=True)
 
 print("Ready. Press the button to take a photo. Ctrl+C to quit.")
