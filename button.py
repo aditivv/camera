@@ -72,12 +72,19 @@ def apply_face_effect(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(60, 60))
     for (fx, fy, fw, fh) in faces:
-        center = (fx + fw // 2, fy + int(fh * 0.35))
-        axes = (fw // 2, int(fh * 0.4))
-        overlay = frame.copy()
-        cv2.ellipse(overlay, center, axes, 0, 0, 360, (0, 0, 255), -1)
-        cv2.addWeighted(overlay, 0.35, frame, 0.65, 0, frame)
-        cv2.ellipse(frame, center, axes, 0, 0, 360, (0, 0, 255), 3)
+        eye_y = fy + int(fh * 0.42)
+        left_eye_x = fx + int(fw * 0.28)
+        right_eye_x = fx + int(fw * 0.72)
+        lens_radius = int(fw * 0.16)
+        thickness = max(2, lens_radius // 4)
+
+        cv2.circle(frame, (left_eye_x, eye_y), lens_radius, (0, 0, 0), -1)
+        cv2.circle(frame, (right_eye_x, eye_y), lens_radius, (0, 0, 0), -1)
+        # bridge connecting the two lenses
+        cv2.line(frame, (left_eye_x + lens_radius, eye_y), (right_eye_x - lens_radius, eye_y), (0, 0, 0), thickness)
+        # temple arms extending toward the sides of the face
+        cv2.line(frame, (left_eye_x - lens_radius, eye_y), (fx, eye_y - int(fh * 0.05)), (0, 0, 0), thickness)
+        cv2.line(frame, (right_eye_x + lens_radius, eye_y), (fx + fw, eye_y - int(fh * 0.05)), (0, 0, 0), thickness)
     return frame
 
 
