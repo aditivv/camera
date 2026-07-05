@@ -19,8 +19,9 @@ A camera that allows you to take pictures by clicking a button!
 5. Clone this repository on your Pi.
 6. Run `python button.py` and follow the instructions that follow in the command prompt. Images will be saved in your Pi's `home\Pictures` directory.
 
-## Fun features
+## Features
 * Show a thumbs up to the camera --> glasses will appear on your face! Show a thumbs down for the glasses to disappear. Effects will appear in any photos that you take.
+* Ability to name file to whatever you would like. Leaving the name prompt blank saves it in a date-time format.
 
 ## Potential enhancements
 
