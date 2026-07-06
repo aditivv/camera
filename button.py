@@ -5,6 +5,7 @@ import os
 
 # SW pin on the joystick, wired the same as the old standalone button
 button = Button(17, pull_up=True, bounce_time=0.2)
+sound_sensor = DigitalInputDevice(26)
 
 # VRy/VRx pins on the joystick. With the module's VCC wired to the Pi's 3.3V
 # rail (not 5V - GPIO inputs only tolerate up to 3.3V), pushing the stick up
@@ -46,6 +47,7 @@ def disable_effect():
     effect_enabled = False
 
 button.when_pressed = request_capture
+sound_sensor.when_activated = request_capture
 joystick_y.when_activated = enable_effect
 joystick_x.when_activated = disable_effect
 
