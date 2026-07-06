@@ -38,7 +38,7 @@ Additional setup:
 3. Run `python button.py` and follow the instructions that follow in the command prompt. Images will be saved in your Pi's `home\Pictures` directory.
 4. Note: After taking an image, the live feed will freeze until you enter a file name (or click "Enter" in command prompt). You can click the live feed popup to refocus to the camera after naming the file.
 
-# Update (7/5/26)
+# Update (7/5/26) ⭐
 Camera now functions using a joystick rather than a button!
 
 ## Updated Required Components [outdated as of 7/6/26]
@@ -63,7 +63,7 @@ Camera now functions using a joystick rather than a button!
 10. Run `python button.py` and follow the instructions that follow in the command prompt. Images will be saved in your Pi's `home\Pictures` directory.
 11. Note: After taking an image, the live feed will freeze until you enter a file name (or click "Enter" in command prompt). You can click the live feed popup to refocus to the camera after naming the file.
 
-# Starting point (7/4/26)
+# Starting point (7/4/26) ⭐
 
 ## Required Components [outdated as of 7/5/26]
 
