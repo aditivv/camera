@@ -1,8 +1,8 @@
-# Camera
+# Camera 📸
 
 A camera that allows you to take pictures using a joystick OR through sound (EG. a clap)!
 
-# Update (7/6/26)
+# Update (7/6/26) 🌟
 Users can now take images hands-free using sound!
 
 ## Updated Required Components
@@ -62,6 +62,8 @@ Camera now functions using a joystick rather than a button!
 9. Clone this repository on your Pi.
 10. Run `python button.py` and follow the instructions that follow in the command prompt. Images will be saved in your Pi's `home\Pictures` directory.
 11. Note: After taking an image, the live feed will freeze until you enter a file name (or click "Enter" in command prompt). You can click the live feed popup to refocus to the camera after naming the file.
+
+# Starting point (7/4/26)
 
 ## Required Components [outdated as of 7/5/26]
 
