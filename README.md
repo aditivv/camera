@@ -87,6 +87,7 @@ Camera now functions using a joystick rather than a button!
 
 * ~~Show a thumbs up to the camera --> glasses will appear on your face! Show a thumbs down for the glasses to disappear. Effects will appear in any photos that you take.~~
 * Move the joystick UP to enable a glasses effect on your face in the live feed! Move the joystick LEFT to disable the effect. Effects will appear in any photos that you take.
+* Ability to take photos by making a sound; for example, CLAP and a photo will be clicked.
 * Ability to name file to whatever you would like. Leaving the name prompt blank saves it in a date-time format.
 
 ## Potential enhancements
