@@ -2,6 +2,17 @@
 
 A camera that allows you to take pictures using a joystick OR through sound (EG. a clap)!
 
+## Features
+
+* ~~Show a thumbs up to the camera --> glasses will appear on your face! Show a thumbs down for the glasses to disappear. Effects will appear in any photos that you take.~~
+* Move the joystick UP to enable a glasses effect on your face in the live feed! Move the joystick LEFT to disable the effect. Effects will appear in any photos that you take.
+* Ability to take photos by making a sound; for example, CLAP and a photo will be clicked.
+* Ability to name file to whatever you would like. Leaving the name prompt blank saves it in a date-time format.
+
+## Potential enhancements
+
+* Utilizing MediaPipe framework for live feed detection (hand signals, etc.); unfortunately currently unavailable due to its lagging behind recent Python updates.
+
 # Update (7/6/26) 🌟
 Users can now take images hands-free using sound!
 
@@ -82,14 +93,3 @@ Camera now functions using a joystick rather than a button!
 5. Clone this repository on your Pi.
 6. Run `python button.py` and follow the instructions that follow in the command prompt. Images will be saved in your Pi's `home\Pictures` directory.
 7. Note: After taking an image, the live feed will freeze until you enter a file name (or click "Enter" in command prompt). You can click the live feed popup to refocus to the camera after naming the file.
-
-## Features
-
-* ~~Show a thumbs up to the camera --> glasses will appear on your face! Show a thumbs down for the glasses to disappear. Effects will appear in any photos that you take.~~
-* Move the joystick UP to enable a glasses effect on your face in the live feed! Move the joystick LEFT to disable the effect. Effects will appear in any photos that you take.
-* Ability to take photos by making a sound; for example, CLAP and a photo will be clicked.
-* Ability to name file to whatever you would like. Leaving the name prompt blank saves it in a date-time format.
-
-## Potential enhancements
-
-* Utilizing MediaPipe framework for live feed detection (hand signals, etc.); unfortunately currently unavailable due to its lagging behind recent Python updates.
