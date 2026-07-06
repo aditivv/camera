@@ -30,13 +30,18 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_fronta
 print("Ready. Push the joystick up to enable the glasses effect, left to disable it.")
 print("Press the joystick in to take a photo. Press 'q' in the preview window (or Ctrl+C) to quit.")
 
-capture_requested = False
+CAPTURE_DELAY_SECONDS = 3
+
+capture_pending = False
+capture_start = None
 effect_enabled = False
 
 
 def request_capture():
-    global capture_requested
-    capture_requested = True
+    global capture_pending, capture_start
+    if not capture_pending:
+        capture_pending = True
+        capture_start = time.time()
 
 
 def enable_effect():
@@ -102,10 +107,9 @@ try:
 
         cv2.imshow("Camera Preview", display_frame)
 
-        if capture_requested:
-            time.sleep(3)
+        if capture_pending and time.time() - capture_start >= CAPTURE_DELAY_SECONDS:
             save_photo(display_frame)
-            capture_requested = False
+            capture_pending = False
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
