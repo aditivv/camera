@@ -2,6 +2,7 @@ from gpiozero import Button, DigitalInputDevice
 import cv2
 from datetime import datetime
 import os
+import time
 
 # SW pin on the joystick, wired the same as the old standalone button
 button = Button(17, pull_up=True, bounce_time=0.2)
@@ -102,6 +103,7 @@ try:
         cv2.imshow("Camera Preview", display_frame)
 
         if capture_requested:
+            time.sleep(3)
             save_photo(display_frame)
             capture_requested = False
 
