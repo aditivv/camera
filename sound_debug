@@ -1,0 +1,7 @@
+from gpiozero import DigitalInputDevice
+from signal import pause
+
+sound_sensor = DigitalInputDevice(26)
+sound_sensor.when_activated = lambda: print("Triggered!")
+sound_sensor.when_deactivated = lambda: print("Back to normal")
+pause()
