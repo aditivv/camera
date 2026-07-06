@@ -40,14 +40,10 @@ def request_capture():
 def enable_effect():
     global effect_enabled
     effect_enabled = True
-    print("enable_effect fired (joystick up)")
-
 
 def disable_effect():
     global effect_enabled
     effect_enabled = False
-    print("disable_effect fired (joystick left)")
-
 
 button.when_pressed = request_capture
 joystick_y.when_activated = enable_effect
