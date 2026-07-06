@@ -10,7 +10,7 @@ button = Button(17, pull_up=True, bounce_time=0.2)
 # (not 5V - GPIO inputs only tolerate up to 3.3V), pushing the stick up/down
 # swings VRy across the GPIO's HIGH/LOW threshold, so it can be read directly
 # as a digital pin without an ADC.
-joystick_y = DigitalInputDevice(27, pull_up=None, bounce_time=0.2)
+joystick_y = DigitalInputDevice(27, pull_up=None, active_state=True, bounce_time=0.2)
 
 # Set up the webcam (0 is usually the first/only USB camera)
 camera = cv2.VideoCapture(0)
