@@ -8,6 +8,7 @@ A camera that allows you to take pictures using a joystick OR through sound (EG.
 * Move the joystick UP to enable a glasses effect on your face in the live feed! Move the joystick LEFT to disable the effect. Effects will appear in any photos that you take.
 * Ability to take photos by making a sound; for example, CLAP and a photo will be clicked.
 * Ability to name file to whatever you would like. Leaving the name prompt blank saves it in a date-time format.
+* There is a 3 second delay before photos are taken to prepare.
 
 ## Potential enhancements
 
@@ -15,7 +16,7 @@ A camera that allows you to take pictures using a joystick OR through sound (EG.
 * Using sound sensor module's AO pin to have a zoom in/zoom out feature based on sound volume; cannot be done through GPIO (only supports digital output)
 
 # Update (7/6/26) 🌟
-Users can now take images hands-free using sound!
+Users can now take images hands-free using sound + 3 second delay before images are taken!
 
 ## Updated Required Components
 
