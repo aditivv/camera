@@ -6,11 +6,15 @@ import os
 # SW pin on the joystick, wired the same as the old standalone button
 button = Button(17, pull_up=True, bounce_time=0.2)
 
-# VRy pin on the joystick. With the module's VCC wired to the Pi's 3.3V rail
-# (not 5V - GPIO inputs only tolerate up to 3.3V), pushing the stick up/down
-# swings VRy across the GPIO's HIGH/LOW threshold, so it can be read directly
-# as a digital pin without an ADC.
-joystick_y = DigitalInputDevice(27, pull_up=None, active_state=True, bounce_time=0.02)
+# VRy/VRx pins on the joystick. With the module's VCC wired to the Pi's 3.3V
+# rail (not 5V - GPIO inputs only tolerate up to 3.3V), pushing the stick up
+# swings VRy below the GPIO's digital threshold (reads LOW), and pushing left
+# does the same for VRx. Center and the opposite direction (down/right) both
+# read HIGH on their respective pins - there's no ADC here, so those
+# directions can't be told apart from center. active_state=False means
+# "active" = pushed toward the direction we can reliably detect.
+joystick_y = DigitalInputDevice(27, pull_up=None, active_state=False, bounce_time=0.02)
+joystick_x = DigitalInputDevice(22, pull_up=None, active_state=False, bounce_time=0.02)
 
 # Set up the webcam (0 is usually the first/only USB camera)
 camera = cv2.VideoCapture(0)
@@ -21,7 +25,7 @@ os.makedirs(save_dir, exist_ok=True)
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
-print("Ready. Push the joystick up to enable the glasses effect, down to disable it.")
+print("Ready. Push the joystick up to enable the glasses effect, left to disable it.")
 print("Press the joystick in to take a photo. Press 'q' in the preview window (or Ctrl+C) to quit.")
 
 capture_requested = False
@@ -45,7 +49,7 @@ def disable_effect():
 
 button.when_pressed = request_capture
 joystick_y.when_activated = enable_effect
-joystick_y.when_deactivated = disable_effect
+joystick_x.when_activated = disable_effect
 
 # draws glasses over any face detected in the frame
 def apply_face_effect(frame):
