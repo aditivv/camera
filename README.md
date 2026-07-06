@@ -12,6 +12,7 @@ A camera that allows you to take pictures using a joystick OR through sound (EG.
 ## Potential enhancements
 
 * Utilizing MediaPipe framework for live feed detection (hand signals, etc.); unfortunately currently unavailable due to its lagging behind recent Python updates.
+* Using sound sensor module's AO pin to have a zoom in/zoom out feature based on sound volume; cannot be done through GPIO (only supports digital output)
 
 # Update (7/6/26) 🌟
 Users can now take images hands-free using sound!
