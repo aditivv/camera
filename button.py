@@ -1,4 +1,4 @@
-from gpiozero import Button, DigitalInputDevice
+from gpiozero import Button, DigitalInputDevice, LED
 import cv2
 from datetime import datetime
 import os
@@ -7,6 +7,30 @@ import time
 # SW pin on the joystick, wired the same as the old standalone button
 button = Button(17, pull_up=True, bounce_time=0.2)
 sound_sensor = DigitalInputDevice(26)
+
+# 1-digit common-cathode 7-segment display, used for the pre-capture countdown.
+# Each segment lights up when its GPIO pin is driven HIGH.
+segments = {
+    "a": LED(18),
+    "b": LED(23),
+    "c": LED(8),
+    "d": LED(25),
+    "e": LED(24),
+    "f": LED(15),
+    "g": LED(14),
+}
+
+DIGIT_SEGMENTS = {
+    1: "bc",
+    2: "abged",
+    3: "abgcd",
+}
+
+
+def display_digit(digit):
+    lit = DIGIT_SEGMENTS.get(digit, "")
+    for name, led in segments.items():
+        led.value = name in lit
 
 # VRy/VRx pins on the joystick. With the module's VCC wired to the Pi's 3.3V
 # rail (not 5V - GPIO inputs only tolerate up to 3.3V), pushing the stick up
@@ -34,14 +58,16 @@ CAPTURE_DELAY_SECONDS = 3
 
 capture_pending = False
 capture_start = None
+capture_last_displayed = None
 effect_enabled = False
 
 
 def request_capture():
-    global capture_pending, capture_start
+    global capture_pending, capture_start, capture_last_displayed
     if not capture_pending:
         capture_pending = True
         capture_start = time.time()
+        capture_last_displayed = None
 
 
 def enable_effect():
@@ -107,9 +133,17 @@ try:
 
         cv2.imshow("Camera Preview", display_frame)
 
-        if capture_pending and time.time() - capture_start >= CAPTURE_DELAY_SECONDS:
-            save_photo(display_frame)
-            capture_pending = False
+        if capture_pending:
+            elapsed = time.time() - capture_start
+            if elapsed >= CAPTURE_DELAY_SECONDS:
+                display_digit(None)
+                save_photo(display_frame)
+                capture_pending = False
+            else:
+                digit_to_show = CAPTURE_DELAY_SECONDS - int(elapsed)
+                if digit_to_show != capture_last_displayed:
+                    display_digit(digit_to_show)
+                    capture_last_displayed = digit_to_show
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
